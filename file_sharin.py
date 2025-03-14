@@ -63,6 +63,6 @@ if files:
         if col3.button("🗑️ Delete", key=file):
             delete_file(file)
             st.rerun()
-)
+
 else:
     st.info("No files uploaded yet.")
