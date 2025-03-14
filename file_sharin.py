@@ -89,10 +89,12 @@ else:
         for file in department_files:
             col1, col2, col3 = st.columns([3, 1, 1])
             col1.write(file)
-            with open(os.path.join(user_folder, file), "rb") as f:
+            file_path = os.path.join(user_folder, file)
+            with open(file_path, "rb") as f:
                 col2.download_button(label="⬇️ Download", data=f, file_name=file, mime="application/octet-stream")
             if col3.button("🗑️ Delete", key=f"dept_{file}"):
-                os.remove(os.path.join(user_folder, file))
+                os.remove(file_path)
+                st.session_state["deleted"] = True
                 st.rerun()
     else:
         st.info("No files uploaded in your department folder.")
@@ -102,10 +104,12 @@ else:
         for file in global_files:
             col1, col2, col3 = st.columns([3, 1, 1])
             col1.write(file)
-            with open(os.path.join(global_folder, file), "rb") as f:
+            file_path = os.path.join(global_folder, file)
+            with open(file_path, "rb") as f:
                 col2.download_button(label="⬇️ Download", data=f, file_name=file, mime="application/octet-stream")
             if col3.button("🗑️ Delete", key=f"global_{file}"):
-                os.remove(os.path.join(global_folder, file))
+                os.remove(file_path)
+                st.session_state["deleted"] = True
                 st.rerun()
     else:
         st.info("No files in the Global folder.")
