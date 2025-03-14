@@ -31,7 +31,7 @@ def delete_file(file_name):
 
 # Streamlit UI
 st.set_page_config(page_title="File Sharing System", layout="wide")
-st.title("📂 File Sharing System")
+st.title("📂 File Sharing System By Neusco Ai Team")
 
 # Upload Section
 st.header("Upload a File")
