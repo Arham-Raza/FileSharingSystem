@@ -61,9 +61,9 @@ else:
     # Upload Section
     st.header("📤 Upload a File")
     uploaded_file = st.file_uploader("Choose a file", type=None, accept_multiple_files=False)
-    upload_to_global = st.checkbox("Upload to Global Folder")
+    upload_to_global = st.checkbox("Upload to Global Folder", value=False)
 
-    if uploaded_file:
+    if uploaded_file and st.session_state.get("file_uploaded") is None:
         if uploaded_file.size > MAX_FILE_SIZE_MB * 1024 * 1024:
             st.error("File size exceeds 1GB limit.")
         else:
@@ -75,7 +75,9 @@ else:
                 shutil.copyfileobj(uploaded_file, f)
             
             folder_name = "Global Folder" if upload_to_global else "Department Folder"
+            st.session_state["file_uploaded"] = file_path
             st.success(f"File uploaded successfully to {folder_name}: {uploaded_file.name}")
+            st.rerun()
     
     # File List Section
     st.header("📁 Your Department Files & Global Files")
